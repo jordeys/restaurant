@@ -23,12 +23,34 @@ export class HomePage {
     apellido: '',
     id: ''
   };
+
+  previewUrl: any = null;
+
+   bigImg = null;
+  bigSize = '0';
+ 
+  smallImg = null;
+  smallSize = '0';
+  
+  
   constructor(private bd:BdService, private toast:ToastService, private load:LoadingService) {
+  }
+  previewImage(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewUrl = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      this.previewUrl = null;
+    }
   }
   ngOnInit() {
     this.bd.get<Item>(this.enlace).subscribe(p=>{
       this.Personas=p;
     });
+    
   }
   save(){
     this.load.presentLoading();
@@ -59,7 +81,7 @@ export class HomePage {
     this.newPersona.cedula="";
     this.newPersona.nombre="";
     this.newPersona.apellido="";
-    }
+    } 
   }
 
 
