@@ -21,10 +21,11 @@ export class HomePage {
     cedula: '',
     nombre: '',
     apellido: '',
+    imagen:'',
+
     id: ''
   };
-
-  previewUrl: any = null;
+  imagenUrl!: string;
 
    bigImg = null;
   bigSize = '0';
@@ -35,17 +36,10 @@ export class HomePage {
   
   constructor(private bd:BdService, private toast:ToastService, private load:LoadingService) {
   }
-  previewImage(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.previewUrl = e.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    } else {
-      this.previewUrl = null;
-    }
+  buscarImagen() {
+    // No se hace nada en esta función ya que la URL de la imagen ya se almacena en la propiedad imagenUrl
   }
+
   ngOnInit() {
     this.bd.get<Item>(this.enlace).subscribe(p=>{
       this.Personas=p;
@@ -81,6 +75,7 @@ export class HomePage {
     this.newPersona.cedula="";
     this.newPersona.nombre="";
     this.newPersona.apellido="";
+    this.newPersona.imagen="";
     } 
   }
 
