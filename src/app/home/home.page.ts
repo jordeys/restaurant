@@ -18,10 +18,10 @@ export class HomePage {
   private enlace:string = 'Personas';
   public Personas:Item[]=[];
   public newPersona:Item={
-    cedula: '',
-    nombre: '',
-    apellido: '',
     imagen:'',
+    plato: '',
+    precio: '',
+    calificacion: '',
 
     id: ''
   };
@@ -72,9 +72,9 @@ export class HomePage {
 
   clean(){
     this.newPersona.id="";
-    this.newPersona.cedula="";
-    this.newPersona.nombre="";
-    this.newPersona.apellido="";
+    this.newPersona.plato="";
+    this.newPersona.precio="";
+    this.newPersona.calificacion="";
     this.newPersona.imagen="";
     } 
   }
