@@ -1,11 +1,12 @@
 import { BdService } from './../../Services/bd.service';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Item } from 'src/Models/item';
+import { Item} from 'src/Models/item';
 import { FormsModule } from '@angular/forms';
 import { ToastService } from 'src/Services/toast.service';
 import { LoadingService } from 'src/Services/loading.service';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
@@ -16,35 +17,30 @@ import { CommonModule } from '@angular/common';
 })
 export class HomePage {
   private enlace:string = 'Personas';
+
   public Personas:Item[]=[];
-  public newPersona:Item={
-    imagen:'',
-    plato: '',
-    precio: '',
-    calificacion: '',
 
-    id: ''
+
+
+  public newPersona:Item ={
+    repeticion: '',
+    nombre_P: '',
+    id: '',
+    tiempo: '',
+    foto: '',
+    Desc:''
+
   };
-  imagenUrl!: string;
 
-   bigImg = null;
-  bigSize = '0';
- 
-  smallImg = null;
-  smallSize = '0';
-  
-  
-  constructor(private bd:BdService, private toast:ToastService, private load:LoadingService) {
-  }
-  buscarImagen() {
-    // No se hace nada en esta función ya que la URL de la imagen ya se almacena en la propiedad imagenUrl
-  }
 
+  newI = '';
+
+  constructor(private bd:BdService, private toast:ToastService, private load:LoadingService ) {}
   ngOnInit() {
     this.bd.get<Item>(this.enlace).subscribe(p=>{
       this.Personas=p;
     });
-    
+
   }
   save(){
     this.load.presentLoading();
@@ -57,9 +53,13 @@ export class HomePage {
     }).catch(()=>{
       this.toast.showToast("Error al guardar","danger","sad-outline");
     });
+
+    
   }
 
+
   delete(p:Item){
+    
     this.load.presentLoading();
     this.bd.delete(`Personas`,p.id).then(()=>{
       this.toast.showToast("Exito al Borrar","success","trash-outline");
@@ -70,13 +70,31 @@ export class HomePage {
 
   }
 
+
   clean(){
     this.newPersona.id="";
-    this.newPersona.plato="";
-    this.newPersona.precio="";
-    this.newPersona.calificacion="";
-    this.newPersona.imagen="";
-    } 
+    this.newPersona.repeticion="";
+    this.newPersona.nombre_P="";
+    this.newPersona.tiempo="";
+    this.newPersona.foto="";
+    this.newPersona.Desc="";
+
+    }
+
+    newImage(event: any)
+    {
+      if (event.target.files && event.target.files[0])
+        {
+          const reader = new FileReader();
+          reader.onload = ((image) =>{
+            this.newI = image.target?.result as string;
+
+          });
+          reader.readAsDataURL(event.target.files[0])
+ 
+        }
+    }
+
+
+
   }
-
-

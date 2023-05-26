@@ -1,11 +1,12 @@
 export interface Item{
   id:string;
-  imagen: string;
-  plato: string;
-  precio: string;
-  calificacion: string;
-  
+  repeticion:string
+  nombre_P:string;
+  tiempo:string;
+  foto:string;
+  Desc:string;
 
 }
+
 
 
